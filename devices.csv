@@ -1,0 +1,5 @@
+Device_Name,Device_Type,IP_Address,Location,Status
+OLT-01,OLT,192.0.2.10,POP-A,Online
+SW-CORE-01,Switch,192.0.2.20,POP-A,Online
+RTR-01,Router,192.0.2.30,POP-B,Online
+OLT-02,OLT,192.0.2.40,POP-B,Offline
