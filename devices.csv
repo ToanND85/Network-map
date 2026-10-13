@@ -4,3 +4,4 @@ SW-CORE-01,Switch,192.0.2.20,POP-A,Online
 RTR-01,Router,192.0.2.30,POP-B,Online
 OLT-02,OLT,192.0.2.40,POP-B,Offline
 SW-ACCESS-01,Switch,192.0.2.50,POP-C,Online
+OLT-03,OLT,192.0.2.60,POP-C,Online
