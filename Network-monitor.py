@@ -1,32 +1,57 @@
-
 import csv
 from pathlib import Path
 
-# Xac dinh duong dan file CSV
-file_path = Path(__file__).parent / "devices.csv"
 
-# Doc danh sach thiet bi
-with open(file_path, mode="r", encoding="utf-8-sig", newline="") as file:
-    reader = csv.DictReader(file)
-    devices = list(reader)
+def read_devices(file_path):
+    """Doc danh sach thiet bi tu CSV."""
+    with open(file_path, mode="r", encoding="utf-8-sig", newline="") as file:
+        reader = csv.DictReader(file)
+        return list(reader)
 
-# Thong ke trang thai
-total = len(devices)
-online = sum(1 for d in devices if d["Status"].strip().lower() == "online")
-offline = sum(1 for d in devices if d["Status"].strip().lower() == "offline")
 
-# Hien thi ket qua
-print("=== NETWORK MONITOR ===")
-print(f"Tong so thiet bi: {total}")
-print(f"Online: {online}")
-print(f"Offline: {offline}")
+def count_status(devices):
+    """Thong ke so thiet bi Online va Offline."""
+    total = len(devices)
+    online = sum(
+        1 for d in devices
+        if d["Status"].strip().lower() == "online"
+    )
+    offline = sum(
+        1 for d in devices
+        if d["Status"].strip().lower() == "offline"
+    )
 
-print("\nDanh sach thiet bi Offline:")
+    return total, online, offline
 
-for device in devices:
-    if device["Status"].strip().lower() == "offline":
+
+def get_offline_devices(devices):
+    """Lay danh sach thiet bi Offline."""
+    return [
+        d for d in devices
+        if d["Status"].strip().lower() == "offline"
+    ]
+
+
+def main():
+    file_path = Path(__file__).parent / "devices.csv"
+
+    devices = read_devices(file_path)
+    total, online, offline = count_status(devices)
+
+    print("=== NETWORK MONITOR ===")
+    print(f"Tong so thiet bi: {total}")
+    print(f"Online: {online}")
+    print(f"Offline: {offline}")
+
+    print("\nDanh sach thiet bi Offline:")
+
+    for device in get_offline_devices(devices):
         print(
             f"- {device['Device_Name']} "
             f"| IP: {device['IP_Address']} "
             f"| Location: {device['Location']}"
         )
+
+
+if __name__ == "__main__":
+    main()
